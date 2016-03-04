@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNet.Identity
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+
+			@Html.ActionLink("Xion IT", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+		</div>
+
+		<div class="navbar-collapse collapse">
+
+			<ul class="nav navbar-nav">
+
+				@if (Request.IsAuthenticated)
+				{
+					<li class="@Html.IsSelected("Index", "Dashboard")">@Html.ActionLink("Dashboard", "index", "Dashboard")</li>
+
+					<li class="dropdown @Html.IsSelected(controller: "Users")">
+						<a href="@Url.Action("index", "Users")" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li>@Html.ActionLink("All Users", "index", "Users")</li>
+							<li>@Html.ActionLink("New User", "new", "Users")</li>
+						</ul>
+					</li>
+
+					<li class="dropdown @Html.IsSelected(controller: "Assets")">
+						<a href="@Url.Action("index", "Assets")" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Assets <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li>@Html.ActionLink("All Assets", "index", "Assets")</li>
+							<li>@Html.ActionLink("New Asset", "new", "Assets")</li>
+						</ul>
+					</li>
+
+					<li class="@Html.IsSelected("Index", "Reports")">@Html.ActionLink("Reports", "index", "Reports")</li>
+				}
+
+				<li class="@Html.IsSelected("About", "Home")">@Html.ActionLink("About", "About", "Home")</li>
+				<li class="@Html.IsSelected("Contact", "Home")">@Html.ActionLink("Contact", "Contact", "Home")</li>
+			</ul>
+
+			@Html.Partial("_LoginPartial")
+
+		</div>
+
+	</div>
+
+</div>

@@ -1,0 +1,10 @@
+C:\Projects\XionIT\AssetsDataModels\bin\Debug\AssetsDataModels.dll.config
+C:\Projects\XionIT\AssetsDataModels\bin\Debug\AssetsDataModels.dll
+C:\Projects\XionIT\AssetsDataModels\bin\Debug\AssetsDataModels.pdb
+C:\Projects\XionIT\AssetsDataModels\bin\Debug\EntityFramework.dll
+C:\Projects\XionIT\AssetsDataModels\bin\Debug\EntityFramework.SqlServer.dll
+C:\Projects\XionIT\AssetsDataModels\bin\Debug\EntityFramework.xml
+C:\Projects\XionIT\AssetsDataModels\bin\Debug\EntityFramework.SqlServer.xml
+C:\Projects\XionIT\AssetsDataModels\obj\Debug\AssetsDataModels.csprojResolveAssemblyReference.cache
+C:\Projects\XionIT\AssetsDataModels\obj\Debug\AssetsDataModels.dll
+C:\Projects\XionIT\AssetsDataModels\obj\Debug\AssetsDataModels.pdb

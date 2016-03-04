@@ -1,0 +1,38 @@
+﻿@model XionIT.Models.IndexViewModel
+@{
+	ViewBag.Title = "Manage";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+	<h4>Change your account settings</h4>
+	<hr />
+
+	<div class="row">
+
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">Your Role(s)</div>
+				<div class="panel-body">
+					@string.Join(@", ", Model.Roles)
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			@if (Model.HasPassword)
+			{
+				<a href="@Url.Action("ChangePassword")" class="btn btn-primary">Change your password</a>
+			}
+			else
+			{
+				<a href="@Url.Action("SetPassword")" class="btn btn-primary">Create</a>
+			}
+		</div>
+
+		@*<div class="col-md-6"><a href="@Url.Action("ManageLogins")" class="btn btn-primary">Manage External Logins</a></div>*@
+
+	</div>
+</div>
