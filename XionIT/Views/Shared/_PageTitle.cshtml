@@ -1,0 +1,15 @@
+﻿
+@{ 
+	var pageTitle = ViewBag.Title ?? "";
+	var pageSubTitle = ViewBag.SubTitle ?? "";
+}
+
+<h2>@pageTitle</h2>
+
+@if(!string.IsNullOrEmpty(pageSubTitle))
+{
+	<h4>@pageSubTitle</h4>
+}
+
+<hr/>
+

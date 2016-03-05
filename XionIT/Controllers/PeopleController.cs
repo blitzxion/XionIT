@@ -14,13 +14,13 @@ using System.Web.Mvc;
 namespace XionIT.Controllers
 {
 	[Authorize(Roles = @"Admin")]
-	public class UsersController : Controller
+	public class PeopleController : Controller
 	{
-		public UsersController()
+		public PeopleController()
 		{
 		}
 
-		public UsersController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
+		public PeopleController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
 		{
 			UserManager = userManager;
 			RoleManager = roleManager;
@@ -53,14 +53,14 @@ namespace XionIT.Controllers
 		}
 
 		//
-		// GET: /Users/
+		// GET: /People/
 		public async Task<ActionResult> Index()
 		{
 			return View(await UserManager.Users.ToListAsync());
 		}
 
 		//
-		// GET: /Users/Details/5
+		// GET: /People/Details/5
 		public async Task<ActionResult> Details(string id)
 		{
 			if (id == null)
@@ -75,7 +75,7 @@ namespace XionIT.Controllers
 		}
 
 		//
-		// GET: /Users/Create
+		// GET: /People/Create
 		public async Task<ActionResult> Create()
 		{
 			//Get the list of Roles
@@ -84,14 +84,21 @@ namespace XionIT.Controllers
 		}
 
 		//
-		// POST: /Users/Create
+		// POST: /People/Create
 		[HttpPost]
 		public async Task<ActionResult> Create(RegisterViewModel userViewModel, params string[] selectedRoles)
 		{
 			if (ModelState.IsValid)
 			{
-				var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email };
-				var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
+				var now = DateTime.UtcNow;
+				var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email, Created = now, Updated = now };
+
+				// Admins only get passwords to login
+				IdentityResult adminresult = null;
+				if (selectedRoles.Contains(@"Admin", StringComparer.InvariantCultureIgnoreCase))
+					adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
+				else
+					adminresult = await UserManager.CreateAsync(user); // Not Admin, doesn't need a password.
 
 				//Add User to the selected Roles 
 				if (adminresult.Succeeded)
@@ -121,7 +128,7 @@ namespace XionIT.Controllers
 		}
 
 		//
-		// GET: /Users/Edit/1
+		// GET: /People/Edit/1
 		public async Task<ActionResult> Edit(string id)
 		{
 			if (id == null)
@@ -150,7 +157,7 @@ namespace XionIT.Controllers
 		}
 
 		//
-		// POST: /Users/Edit/5
+		// POST: /People/Edit/5
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> Edit([Bind(Include = "Email,Id")] EditUserViewModel editUser, params string[] selectedRole)
@@ -191,7 +198,7 @@ namespace XionIT.Controllers
 		}
 
 		//
-		// GET: /Users/Delete/5
+		// GET: /People/Delete/5
 		public async Task<ActionResult> Delete(string id)
 		{
 			if (id == null)
@@ -207,7 +214,7 @@ namespace XionIT.Controllers
 		}
 
 		//
-		// POST: /Users/Delete/5
+		// POST: /People/Delete/5
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> DeleteConfirmed(string id)

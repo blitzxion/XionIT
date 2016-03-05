@@ -124,7 +124,8 @@ namespace XionIT
 			var user = userManager.FindByName(name);
 			if (user == null)
 			{
-				user = new ApplicationUser { UserName = name, Email = name };
+				var now = DateTime.UtcNow;
+				user = new ApplicationUser { UserName = name, Email = name, Created = now, Updated = now };
 				var result = userManager.Create(user, password);
 				result = userManager.SetLockoutEnabled(user.Id, false);
 			}

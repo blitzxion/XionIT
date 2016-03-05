@@ -13,8 +13,11 @@
 	@Html.Partial("_Navigation")
 
 	<div class="container body-content">
+		@Html.Partial("_PageTitle")
 		@RenderBody()
+	</div>
 
+	<div class="container">
 		@Html.Partial("_Footer")
 	</div>
 

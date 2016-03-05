@@ -23,10 +23,10 @@
 					<li class="@Html.IsSelected("Index", "Dashboard")">@Html.ActionLink("Dashboard", "index", "Dashboard")</li>
 
 					<li class="dropdown @Html.IsSelected(controller: "Users")">
-						<a href="@Url.Action("index", "Users")" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users <span class="caret"></span></a>
+						<a href="@Url.Action("index", "People")" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">People <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li>@Html.ActionLink("All Users", "index", "Users")</li>
-							<li>@Html.ActionLink("New User", "new", "Users")</li>
+							<li>@Html.ActionLink("All People", "index", "People")</li>
+							<li>@Html.ActionLink("New Person", "create", "People")</li>
 						</ul>
 					</li>
 
@@ -34,7 +34,7 @@
 						<a href="@Url.Action("index", "Assets")" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Assets <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li>@Html.ActionLink("All Assets", "index", "Assets")</li>
-							<li>@Html.ActionLink("New Asset", "new", "Assets")</li>
+							<li>@Html.ActionLink("New Asset", "create", "Assets")</li>
 						</ul>
 					</li>
 

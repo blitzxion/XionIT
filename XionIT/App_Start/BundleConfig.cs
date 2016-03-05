@@ -23,11 +23,17 @@ namespace XionIT
 					  "~/Scripts/bootstrap.js",
 					  "~/Scripts/respond.js"));
 
+			// Sparkline
+			bundles.Add(new ScriptBundle("~/plugins/sparkline").Include(
+				"~/Scripts/plugins/sparkline/jquery.sparkline.min.js"));
+
+			// Overral Site CSS
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 					  "~/Content/bootstrap.css",
 					  "~/Content/yeti.theme.css",
 					  "~/Content/site.css"));
 
+			// Site JS
 			bundles.Add(new ScriptBundle("~/bundles/sitejs").Include(
 				"~/Scripts/site.js"
 			));
