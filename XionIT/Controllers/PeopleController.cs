@@ -86,7 +86,7 @@ namespace XionIT.Controllers
 		//
 		// POST: /People/Create
 		[HttpPost]
-		public async Task<ActionResult> Create(RegisterViewModel userViewModel, params string[] selectedRoles)
+		public async Task<ActionResult> Create(NewPersonViewModel userViewModel) //, params string[] selectedRoles)
 		{
 			if (ModelState.IsValid)
 			{
@@ -95,7 +95,8 @@ namespace XionIT.Controllers
 
 				// Admins only get passwords to login
 				IdentityResult adminresult = null;
-				if (selectedRoles.Contains(@"Admin", StringComparer.InvariantCultureIgnoreCase))
+				
+				if (userViewModel.Roles.Contains(@"Admin", StringComparer.InvariantCultureIgnoreCase))
 					adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
 				else
 					adminresult = await UserManager.CreateAsync(user); // Not Admin, doesn't need a password.
@@ -103,9 +104,9 @@ namespace XionIT.Controllers
 				//Add User to the selected Roles 
 				if (adminresult.Succeeded)
 				{
-					if (selectedRoles != null)
+					if (userViewModel.Roles != null)
 					{
-						var result = await UserManager.AddToRolesAsync(user.Id, selectedRoles);
+						var result = await UserManager.AddToRolesAsync(user.Id, userViewModel.Roles);
 						if (!result.Succeeded)
 						{
 							ModelState.AddModelError("", result.Errors.First());

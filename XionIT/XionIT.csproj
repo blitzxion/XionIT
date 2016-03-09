@@ -221,6 +221,7 @@
     <Compile Include="Helpers\HTMLHelperExtensions.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModels.cs" />
+    <Compile Include="Models\AssetsViewModels.cs" />
     <Compile Include="Models\DashboardViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -299,6 +300,7 @@
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\People\Create.cshtml" />
     <Content Include="Views\Shared\_PageTitle.cshtml" />
+    <Content Include="Views\Assets\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

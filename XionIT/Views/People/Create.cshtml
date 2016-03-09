@@ -1,5 +1,5 @@
 ﻿@using XionIT.Models;
-@model RegisterViewModel
+@model NewPersonViewModel
 @{
 	ViewBag.Title = "New Person";
 }
@@ -27,15 +27,15 @@
 			User Role
 		</label>
 		<div class="col-md-10">
-			@Html.DropDownList(@"SelectedRoles", ((SelectList)ViewBag.RoleId).Reverse(), null, new { @class = "form-control" })
+			@Html.DropDownList(@"Roles", ((SelectList)ViewBag.RoleId).Reverse(), null, new { @class = "form-control" })
 		</div>
 	</div>
 
-	<div class="passwordContainer hide">
+	<div class="passwordContainer">
 		<div class="form-group">
 			@Html.LabelFor(x => x.Password, new { @class = "col-lg-2 control-label" })
 			<div class="col-lg-10">
-				@Html.EditorFor(x => x.Password, new { htmlAttributes = new { @class = "form-control hide" } })
+				@Html.EditorFor(x => x.Password, new { htmlAttributes = new { @class = "form-control" } })
 				<p class="help-block">Only Admins require a password! Passwords for normal users will be ignored.</p>
 			</div>
 		</div>
@@ -43,7 +43,7 @@
 		<div class="form-group">
 			@Html.LabelFor(x => x.ConfirmPassword, new { @class = "col-lg-2 control-label" })
 			<div class="col-lg-10">
-				@Html.EditorFor(x => x.ConfirmPassword, new { htmlAttributes = new { @class = "form-control hide" } })
+				@Html.EditorFor(x => x.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
 			</div>
 		</div>
 	</div>
@@ -62,24 +62,14 @@
 	<script>
 		(function () {
 
-			$('#SelectedRoles').on('change', function () {
-				var role = $(this).val(),
-					pwd = $('#Password'),
-					cPwd = $('#ConfirmPassword'),
-					pwdDiv = $('.passwordContainer');
-
-				if (role == 'Admin') {
-					pwd.removeClass('hide');
-					cPwd.removeClass('hide');
-					pwdDiv.removeClass('hide');
-				} else {
-					pwd.addClass('hide');
-					cPwd.addClass('hide');
-					pwdDiv.addClass('hide');
-				}
-
+			$('#Roles').on('change', function () {
+				var isDisabled = $(this).val() != "Admin";
+				$('.passwordContainer :input').each(function (index, e) {
+					$(e).prop('disabled', isDisabled);
+				});
+				$('.passwordContainer').toggleClass('hide', isDisabled);
 			});
-			$('#SelectedRoles').change();
+			$('#Roles').change();
 
 		})();
 	</script>
