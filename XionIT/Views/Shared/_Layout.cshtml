@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>@ViewBag.Title - My ASP.NET Application</title>
 	@Styles.Render("~/Content/css")
+	@RenderSection("styles", required: false)
 	@Scripts.Render("~/bundles/modernizr")
 
 </head>
@@ -14,6 +15,7 @@
 
 	<div class="container body-content">
 		@Html.Partial("_PageTitle")
+		@Html.Partial("_PageMessage")
 		@RenderBody()
 	</div>
 

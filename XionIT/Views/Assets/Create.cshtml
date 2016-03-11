@@ -1,4 +1,5 @@
-﻿@model XionIT.Models.NewAssetViewModel
+﻿@using XionIT.Models;
+@model  CreateAssetViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -21,10 +22,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Model, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.AssetModel, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Model, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.AssetModel, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AssetModel, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -61,17 +62,16 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AssignedUserId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SelectedUsers, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-				@Html.DropDownListFor(model => model.AssignedUserId, (SelectList)ViewBag.Users, null, new { @class = "form-control" })
-                @*@Html.EditorFor(model => model.AssignedUserId, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.ValidationMessageFor(model => model.AssignedUserId, "", new { @class = "text-danger" })
+				@Html.DropDownListFor(model => model.SelectedUsers, (SelectList)ViewBag.Users, null, new { @class = "form-control", multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.SelectedUsers, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </div>
     </div>
@@ -80,3 +80,22 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Styles {
+	@Styles.Render("~/Content/select2");
+}
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+	@Scripts.Render("~/plugins/select2");
+	<script>
+		(function(){
+
+			$('#SelectedUsers').select2({
+				placeholder : "Select users"
+			});
+
+		})();
+	</script>
+
+}

@@ -13,9 +13,10 @@ namespace XionIT.Controllers
 	public class AssetsController : BaseController
     {
         // GET: Assets
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+			var model = await AppDbContext.Assets.ToListAsync();
+			return View(model);
         }
 
 
@@ -27,24 +28,50 @@ namespace XionIT.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> Create(NewAssetViewModel model)
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> Create(CreateAssetViewModel model)
 		{
 			var allusers = await UserManager.Users.ToListAsync();
 			ViewBag.Users = new SelectList(allusers, "Id", "Email");
 
 			if (ModelState.IsValid)
 			{
+				// If we use "right now" more than once
 				var now = DateTime.UtcNow;
-
-				// Double check the user information and make sure that user exists
-				if(!allusers.Any(x => x.Id.Equals(model.AssignedUserId)))
+				
+				try
 				{
-					ModelState.AddModelError("", @"That user doesn't exist. Please select a different user.");
+					// Create the new asset based off the view model
+					var newAsset = new Asset()
+					{
+						Name = model.Name,
+						Model = model.AssetModel,
+						Serialnumber = model.Serialnumber,
+						AssetTag = model.AssetTag,
+						Description = model.Description,
+						Notes = model.Notes,
+						Created = now,
+					};
+					
+					// For each selected user, assign them to this asset (and they will be assigned this asset)
+					foreach (var userId in model.SelectedUsers)
+					{
+						var appUser = allusers.FirstOrDefault(x => x.Id == userId);
+						if (appUser != null)
+							newAsset.Users.Add(appUser);
+					}
+
+					// Add the new asset to the DBContext
+					AppDbContext.Assets.Add(newAsset);
+
+					// Save those changes
+					await AppDbContext.SaveChangesAsync();
+				}
+				catch (Exception ex)
+				{
+					ModelState.AddModelError(@"", ex.ToString());
 					return View();
 				}
-
-				//TODO: Fill the DBModel with the information from the ViewModel
-				//TODO: Save to the DB this information
 
 				return RedirectToAction("Index");
 			}
@@ -52,6 +79,106 @@ namespace XionIT.Controllers
 			return View();
 		}
 		
+		public async Task<ActionResult> Details(int id)
+		{
+			var asset = await AppDbContext.Assets.FirstOrDefaultAsync(x => x.Id == id);
+
+			if (asset == null)
+				return new RedirectWithErrorResult("index", "Unknown or missing asset.");
+
+			return View(asset);
+		}
+
+		public async Task<ActionResult> Edit(int id)
+		{
+			var asset = await AppDbContext.Assets.FirstOrDefaultAsync(x => x.Id == id);
+
+			if (asset == null)
+				return new RedirectWithErrorResult("index", "Unknown or missing asset.");
+
+			var model = new EditAssetViewModel(asset);
+
+			var allusers = await UserManager.Users.ToListAsync();
+			ViewBag.Users = new SelectList(allusers, "Id", "Email");
+
+			return View(model);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> Edit(EditAssetViewModel editModel)
+		{
+			var allusers = await UserManager.Users.ToListAsync();
+			ViewBag.Users = new SelectList(allusers, "Id", "Email");
+
+			try
+			{
+				if (ModelState.IsValid)
+				{
+					var asset = await AppDbContext.Assets.FirstOrDefaultAsync(x => x.Id == editModel.AssetId);
+					if (asset == null)
+						return new RedirectWithErrorResult("index", "Unknown or missing asset.");
+
+					editModel.UpdateAssetAsync(asset, allusers);
+
+					await AppDbContext.SaveChangesAsync();
+
+					SetRedirectSuccess(@"Asset was updated.");
+					return Redirect("index");
+				}
+			}
+			catch (Exception ex)
+			{
+				SetRedirectError(ex.ToString());
+			}
+
+			return View(editModel);
+		}
+
+		public async Task<ActionResult> Delete(int id)
+		{
+			var asset = await AppDbContext.Assets.FirstOrDefaultAsync(x => x.Id == id);
+
+			if (asset == null)
+				return new RedirectWithErrorResult("index", "Unknown or missing asset.");
+
+			var model = new DeleteAssetViewModel(asset);
+
+			return View(model);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> Delete(DeleteAssetViewModel model)
+		{
+			var asset = await AppDbContext.Assets.FirstOrDefaultAsync(x => x.Id == model.AssetId);
+
+			if (asset == null)
+				return new RedirectWithErrorResult("index", "Unknown or missing asset.");
+
+			if(!model.Delete)
+			{
+				SetRedirectInfo(@"Asset was not deleted.");
+				return RedirectToAction("index");
+			}
+
+
+			try
+			{
+				AppDbContext.Assets.Remove(asset);
+
+				await AppDbContext.SaveChangesAsync();
+
+				SetRedirectSuccess(@"Asset deleted!");
+				return RedirectToAction("index");
+			}
+			catch (Exception ex)
+			{
+				SetRedirectError(ex.ToString());
+			}
+
+			return View(model);
+		}
 
 
     }

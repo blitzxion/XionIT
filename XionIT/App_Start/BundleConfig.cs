@@ -8,6 +8,8 @@ namespace XionIT
 		// For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
 		public static void RegisterBundles(BundleCollection bundles)
 		{
+			bundles.UseCdn = true;
+
 			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
 						"~/Scripts/jquery-{version}.js"));
 
@@ -26,6 +28,13 @@ namespace XionIT
 			// Sparkline
 			bundles.Add(new ScriptBundle("~/plugins/sparkline").Include(
 				"~/Scripts/plugins/sparkline/jquery.sparkline.min.js"));
+
+			// Select2 (CDN and Fallback)
+			bundles.Add(new ScriptBundle(@"~/plugins/select2", @"https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js").Include(
+				@"~/Scripts/plugins/select2/select2.min.js"));
+
+			bundles.Add(new StyleBundle(@"~/Content/select2", @"https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css").Include(
+				@"~/Content/select2/select2.min.css"));
 
 			// Overral Site CSS
 			bundles.Add(new StyleBundle("~/Content/css").Include(

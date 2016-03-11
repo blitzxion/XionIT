@@ -1,5 +1,46 @@
-﻿
+﻿@using XionIT.Models;
+@model ICollection<Asset>
+
 @{
-    ViewBag.Title = "Assets";
+	ViewBag.Title = "Assets";
 }
 
+<div class="table-responsive">
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Model</th>
+				<th>Serialnumber</th>
+				<th>Asset Tag</th>
+				<th>Description</th>
+				<th>Assigned Count</th>
+				<th>Created</th>
+				<th class="text-right">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			@foreach (var asset in Model ?? new List<Asset>())
+			{
+				<tr class="vert-align">
+					<td>@asset.Name</td>
+					<td>@asset.Model</td>
+					<td>@asset.Serialnumber</td>
+					<td>@asset.AssetTag</td>
+					<td>@asset.Description</td>
+					<td>@asset.Users.Count()</td>
+					<td>@asset.Created.ToShortDateString()</td>
+					<td class="text-right">
+						<div class="btn-group">
+							<a href="@Url.Action("details", "Assets", new { id = asset.Id })" class="btn btn-info"><i class="glyphicon glyphicon-search"></i></a>
+							<a href="@Url.Action("edit", "Assets", new { id = asset.Id })" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></a>
+							<a href="@Url.Action("delete", "Assets", new { id = asset.Id })" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+						</div>
+					</td>
+				</tr>
+			}
+
+		</tbody>
+	</table>
+</div>

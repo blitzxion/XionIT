@@ -1,0 +1,102 @@
+﻿@using XionIT.Models;
+@model EditAssetViewModel
+
+@{
+	ViewBag.Title = string.Format("Editing {0}", Model.Name);
+}
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.AssetModel, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.AssetModel, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.AssetModel, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Serialnumber, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Serialnumber, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Serialnumber, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.AssetTag, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.AssetTag, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.AssetTag, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+				@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.TextAreaFor(model => model.Notes, new { @class = "form-control" })
+				@Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.SelectedUsers, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@*@Html.DropDownListFor(model => model.SelectedUsers, (SelectList)ViewBag.Users, null, new { @class = "form-control", multiple = "multiple" })*@
+				@Html.ListBoxFor(model => model.SelectedUsers, (SelectList)ViewBag.Users, new { @class = "form-control", multiple = "multiple" })
+				@Html.ValidationMessageFor(model => model.SelectedUsers, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		@Html.HiddenFor(model => model.AssetId)
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Update" class="btn btn-primary" />
+			</div>
+		</div>
+	</div>
+}
+
+<div>
+	@Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Styles {
+	@Styles.Render("~/Content/select2");
+}
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+	@Scripts.Render("~/plugins/select2");
+	<script>
+		(function(){
+
+			$('#SelectedUsers').select2({placeholder : "Select users"});
+
+		})();
+	</script>
+
+}

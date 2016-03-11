@@ -219,6 +219,7 @@
     </Compile>
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\HTMLHelperExtensions.cs" />
+    <Compile Include="Helpers\Infrastructure.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModels.cs" />
     <Compile Include="Models\AssetsViewModels.cs" />
@@ -234,6 +235,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\select2\select2.min.css" />
     <Content Include="Content\yeti.theme.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -254,6 +256,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\plugins\select2\select2.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -301,6 +304,9 @@
     <Content Include="Views\People\Create.cshtml" />
     <Content Include="Views\Shared\_PageTitle.cshtml" />
     <Content Include="Views\Assets\Create.cshtml" />
+    <Content Include="Views\Assets\Edit.cshtml" />
+    <Content Include="Views\Shared\_PageMessage.cshtml" />
+    <Content Include="Views\Assets\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -319,12 +325,6 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-2.2.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AssetsDataModels\AssetsDataModels.csproj">
-      <Project>{ccb8f1f7-f0ca-408a-8a7f-c421577ad6c3}</Project>
-      <Name>AssetsDataModels</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
