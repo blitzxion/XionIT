@@ -1,5 +1,43 @@
-﻿
+﻿@using XionIT.Models;
+@model ICollection<IndexPeopleViewModel>
+
+
 @{
-    ViewBag.Title = "People";
+    ViewBag.Title = "All People";
 }
 
+<div class="table-responsive">
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th>Username</th>
+				<th>Email</th>
+				<th>Roles</th>
+				<th>Assets Assigned</th>
+				<th>Created</th>
+				<th class="text-right">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			@foreach (var user in Model ?? new List<IndexPeopleViewModel>())
+			{
+				<tr class="vert-align">
+					<td>@user.Name<br/><small class="text-muted">@user.Id</small></td>
+					<td>@user.Email</td>
+					<td>@user.Roles</td>
+					<td>@user.NumberOfAssets</td>
+					<td>@user.Created.ToShortDateString()</td>
+					<td class="text-right">
+						<div class="btn-group">
+							<a href="@Url.Action("details", "People", new { id = user.Id })" class="btn btn-xs btn-info"><i class="glyphicon glyphicon-search"></i></a>
+							<a href="@Url.Action("edit", "People", new { id = user.Id })" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+							<a href="@Url.Action("delete", "People", new { id = user.Id })" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+						</div>
+					</td>
+				</tr>
+			}
+
+		</tbody>
+	</table>
+</div>

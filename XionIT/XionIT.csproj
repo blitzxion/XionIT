@@ -307,6 +307,10 @@
     <Content Include="Views\Assets\Edit.cshtml" />
     <Content Include="Views\Shared\_PageMessage.cshtml" />
     <Content Include="Views\Assets\Delete.cshtml" />
+    <Content Include="Views\Assets\Details.cshtml" />
+    <Content Include="Views\People\Details.cshtml" />
+    <Content Include="Views\People\Edit.cshtml" />
+    <Content Include="Views\People\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

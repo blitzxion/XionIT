@@ -73,6 +73,7 @@ namespace XionIT.Controllers
 					return View();
 				}
 
+				SetRedirectSuccess(@"Asset created.");
 				return RedirectToAction("Index");
 			}
 
@@ -124,7 +125,7 @@ namespace XionIT.Controllers
 					await AppDbContext.SaveChangesAsync();
 
 					SetRedirectSuccess(@"Asset was updated.");
-					return Redirect("index");
+					return RedirectToAction(@"index");
 				}
 			}
 			catch (Exception ex)

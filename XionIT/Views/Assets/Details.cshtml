@@ -1,0 +1,80 @@
+﻿@using XionIT.Models;
+@model Asset
+
+@{
+	ViewBag.Title = string.Format("{0} Details", Model.Name);
+}
+
+<div class="row">
+
+	<div class="col-md-6">
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Details</h3>
+			</div>
+			<table class="table table-condensed">
+				<tr><th>@Html.DisplayNameFor(x => x.Id)</th><td>@Model.Id</td></tr>
+				<tr><th>@Html.DisplayNameFor(x => x.Name)</th><td>@Model.Name</td></tr>
+				<tr><th>@Html.DisplayNameFor(x => x.Model)</th><td>@Model.Model</td></tr>
+				<tr><th>@Html.DisplayNameFor(x => x.Serialnumber)</th><td>@Model.Serialnumber</td></tr>
+				<tr><th>@Html.DisplayNameFor(x => x.AssetTag)</th><td>@Model.AssetTag</td></tr>
+			</table>
+		</div>
+
+	</div>
+
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Assigned Users</h3>
+			</div>
+			<table class="table">
+				<thead>
+					<tr><th>User</th><th>Assigned Assets</th><th>Actions</th></tr>
+				</thead>
+				<tbody>
+					@foreach (var user in Model.Users)
+					{
+						<tr>
+							<td>@user.UserName</td>
+							<td>@user.Assets.Count()</td>
+							<td><a href="@Url.Action("details", "People", new { id = user.Id })">Details</a></td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</div>
+
+<hr />
+
+<div class="panel-group">
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">@Html.DisplayNameFor(x => x.Description)</h3>
+		</div>
+		<div class="panel-body">
+			<p>@Model.Description</p>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">@Html.DisplayNameFor(x => x.Notes)</h3>
+		</div>
+		<div class="panel-body">
+			<p>@Model.Notes</p>
+		</div>
+	</div>
+
+</div>
+
+<hr/>
+<div class="pull-right">
+	<a href="@Url.Action("index")" class="btn btn-default">Back</a>
+	<a href="@Url.Action("edit", "Assets", new { id = Model.Id })" class="btn btn-warning">Edit</a>
+</div>

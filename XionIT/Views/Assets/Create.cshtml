@@ -71,15 +71,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
+				<a href="@Url.Action("index")" class="btn btn-default">Cancel</a>
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Styles {
 	@Styles.Render("~/Content/select2");
@@ -90,12 +87,9 @@
 	@Scripts.Render("~/plugins/select2");
 	<script>
 		(function(){
-
 			$('#SelectedUsers').select2({
 				placeholder : "Select users"
 			});
-
 		})();
 	</script>
-
 }

@@ -1,0 +1,83 @@
+﻿@using XionIT.Models;
+@model EditUserViewModel
+
+@{
+	ViewBag.Title = string.Format("Editing {0}", Model.Email);
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { autocomplete = "off" }))
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.HiddenFor(model => model.Id)
+		@Html.HiddenFor(model => model.Email)
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.SelectedRole, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.SelectedRole, (SelectList)ViewBag.Roles, new { @class = "form-control" })
+				@Html.ValidationMessageFor(model => model.SelectedRole, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.AssignedAssetIds, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.ListBoxFor(model => model.AssignedAssetIds, (SelectList)ViewBag.AllAssets, new { @class = "form-control", multiple = "multiple" })
+				@Html.ValidationMessageFor(model => model.AssignedAssetIds, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<p class="help-block">Leave the password fields blank if you don't want to change your password.</p>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.CurrentPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.CurrentPassword, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.CurrentPassword, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.NewPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.NewPassword, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<a href="@Url.Action("index")" class="btn btn-default">Cancel</a>
+				<input type="submit" value="Save" class="btn btn-primary" />
+			</div>
+		</div>
+	</div>
+}
+
+@section Styles {
+	@Styles.Render("~/Content/select2");
+}
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+	@Scripts.Render("~/plugins/select2");
+	<script>
+		(function () {
+			$('select').select2();
+		})();
+	</script>
+}

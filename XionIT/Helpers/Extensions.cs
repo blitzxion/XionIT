@@ -31,4 +31,13 @@ namespace XionIT
 			return new DateTime(value.Year, value.Month, value.DaysInMonth());
 		}
 	}
+
+	public static class StringExt
+	{
+		public static string Truncate(this string value, int maxLength, string overText = "...")
+		{
+			if (string.IsNullOrEmpty(value)) return value;
+			return value.Length <= maxLength ? value : string.Format("{0}{1}", value.Substring(0, maxLength), overText);
+		}
+	}
 }

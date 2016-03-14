@@ -64,7 +64,6 @@
 		<div class="form-group">
 			@Html.LabelFor(model => model.SelectedUsers, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@*@Html.DropDownListFor(model => model.SelectedUsers, (SelectList)ViewBag.Users, null, new { @class = "form-control", multiple = "multiple" })*@
 				@Html.ListBoxFor(model => model.SelectedUsers, (SelectList)ViewBag.Users, new { @class = "form-control", multiple = "multiple" })
 				@Html.ValidationMessageFor(model => model.SelectedUsers, "", new { @class = "text-danger" })
 			</div>
@@ -74,15 +73,12 @@
 
 		<div class="form-group">
 			<div class="col-md-offset-2 col-md-10">
+				<a href="@Url.Action("index")" class="btn btn-default">Cancel</a>
 				<input type="submit" value="Update" class="btn btn-primary" />
 			</div>
 		</div>
 	</div>
 }
-
-<div>
-	@Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Styles {
 	@Styles.Render("~/Content/select2");

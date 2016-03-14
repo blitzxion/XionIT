@@ -1,0 +1,55 @@
+﻿@using XionIT.Models;
+@model ApplicationUser
+
+@{
+	ViewBag.Title = string.Format("{0} Details", Model.UserName);
+}
+
+<div class="row">
+
+	<div class="col-md-6">
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Details</h3>
+			</div>
+			<table class="table table-condensed">
+				<tr><th>@Html.DisplayNameFor(x => x.Id)</th><td>@Model.Id</td></tr>
+				<tr><th>@Html.DisplayNameFor(x => x.UserName)</th><td>@Model.UserName</td></tr>
+				<tr><th>@Html.DisplayNameFor(x => x.Email)</th><td>@Model.Email</td></tr>
+				<tr><th>@Html.DisplayNameFor(x => x.Created)</th><td>@Model.Created.ToShortDateString()</td></tr>
+			</table>
+		</div>
+
+	</div>
+
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Assigned Assets</h3>
+			</div>
+			<table class="table">
+				<thead>
+					<tr><th>Name</th><th>Model</th><th>Assigned Users</th><th>Actions</th></tr>
+				</thead>
+				<tbody>
+					@foreach (var asset in Model.Assets)
+					{
+						<tr>
+							<td>@asset.Name</td>
+							<td>@asset.Model</td>
+							<td>@asset.Users.Count()</td>
+							<td><a href="@Url.Action("details", "Assets", new { id = asset.Id })">Details</a></td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</div>
+<hr />
+<div class="pull-right">
+	<a href="@Url.Action("index")" class="btn btn-default">Back</a>
+	<a href="@Url.Action("edit", "People", new { id = Model.Id })" class="btn btn-warning">Edit</a>
+</div>

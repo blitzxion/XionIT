@@ -14,7 +14,7 @@
 				<th>Serialnumber</th>
 				<th>Asset Tag</th>
 				<th>Description</th>
-				<th>Assigned Count</th>
+				<th>Users Assigned</th>
 				<th>Created</th>
 				<th class="text-right">Actions</th>
 			</tr>
@@ -28,14 +28,14 @@
 					<td>@asset.Model</td>
 					<td>@asset.Serialnumber</td>
 					<td>@asset.AssetTag</td>
-					<td>@asset.Description</td>
+					<td>@asset.Description.Truncate(50)</td>
 					<td>@asset.Users.Count()</td>
 					<td>@asset.Created.ToShortDateString()</td>
 					<td class="text-right">
 						<div class="btn-group">
-							<a href="@Url.Action("details", "Assets", new { id = asset.Id })" class="btn btn-info"><i class="glyphicon glyphicon-search"></i></a>
-							<a href="@Url.Action("edit", "Assets", new { id = asset.Id })" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></a>
-							<a href="@Url.Action("delete", "Assets", new { id = asset.Id })" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+							<a href="@Url.Action("details", "Assets", new { id = asset.Id })" class="btn btn-xs btn-info"><i class="glyphicon glyphicon-search"></i></a>
+							<a href="@Url.Action("edit", "Assets", new { id = asset.Id })" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+							<a href="@Url.Action("delete", "Assets", new { id = asset.Id })" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
 						</div>
 					</td>
 				</tr>
