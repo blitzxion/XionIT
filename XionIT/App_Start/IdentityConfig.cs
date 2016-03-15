@@ -91,7 +91,7 @@ namespace XionIT
 	// This is useful if you do not want to tear down the database each time you run the application.
 	// public class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
 	// This example shows you how to create a new database if the Model changes
-	public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+	public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext> // DropCreateDatabaseAlways<ApplicationDbContext>
 	{
 		protected override void Seed(ApplicationDbContext context)
 		{
@@ -117,7 +117,7 @@ namespace XionIT
 			}
 
 			//Create Role User if it does not exist
-			if(roleManager.FindByName(@"User") == null)
+			if (roleManager.FindByName(@"User") == null)
 				roleManager.Create(new IdentityRole(@"User"));
 
 			// Create the user if it doesn't already exist
@@ -136,7 +136,67 @@ namespace XionIT
 			{
 				var result = userManager.AddToRole(user.Id, role.Name);
 			}
+
+			InitializeSeedAssets(db, 100);
+			InitializeSeedUsers(db, userManager, 35);
+
 		}
+
+		static void InitializeSeedUsers(ApplicationDbContext context, ApplicationUserManager userManager, int numUsers, string userRole = @"User")
+		{
+			var allAssets = context.Assets.ToList();
+
+			Random rnd = new Random();
+			for (int i = 0; i < numUsers; i++)
+			{
+				var now = DateTimeExtensions.RandomDate(DateTime.UtcNow.AddDays(-20), DateTime.UtcNow, rnd);
+				var email = StringExtenstions.RandomEmail(rnd);
+
+				var user = new ApplicationUser()
+				{
+					UserName = email,
+					Email = email,
+					Created = now,
+					Updated = now
+				};
+
+				foreach (var asset in allAssets.PickRandom(0, 10, rnd))
+					user.Assets.Add(asset);
+
+				// No passwords, for now
+				var result = userManager.Create(user);
+				userManager.AddToRole(user.Id, userRole);
+
+			}
+
+		}
+
+		static void InitializeSeedAssets(ApplicationDbContext context, int numAssets)
+		{
+			string[] names = new string[] { "TV", "Laptop", "Computer", "Phone", "Monitor", "Projector", "Tablet", "Other" };
+			string[] models = new string[] { "Samsung", "Sony", "Panasonic", "Dell", "HP", "Compaq", "Apple", "Foxconn", "Microsoft", "IBM", "Toshiba", "Intel", "AMD", "LG", "Verizon", "Motorola", "Canon", "Cisco", "TI", "Quadcomm" };
+
+			Random rnd = new Random();
+			for (int i = 0; i < numAssets; i++)
+			{
+				var asset = new Asset()
+				{
+					Name = names.PickRandom(),
+					Model = models.PickRandom(),
+					Serialnumber = StringExtenstions.RandomString(8, rnd),
+					AssetTag = StringExtenstions.RandomString(5, rnd),
+					Notes = LoremIpsum.Generate(5, 10, 1, 2, 1),
+					Description = LoremIpsum.Generate(5, 10, 2, 3, 2),
+					Created = DateTimeExtensions.RandomDate(DateTime.UtcNow.AddDays(-20), DateTime.UtcNow, rnd)
+				};
+
+				context.Assets.Add(asset);
+			}
+
+			context.SaveChanges();
+
+		}
+
 	}
 
 	// Configure the application sign-in manager which is used in this application.

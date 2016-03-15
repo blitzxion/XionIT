@@ -36,6 +36,13 @@ namespace XionIT
 			bundles.Add(new StyleBundle(@"~/Content/select2", @"https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css").Include(
 				@"~/Content/select2/select2.min.css"));
 
+			// DataTables (CDN and Fallback)
+			bundles.Add(new ScriptBundle(@"~/DataTables", @"https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js").Include(
+				@"~/Scripts/DataTables/jquery.dataTables.js"));
+
+			bundles.Add(new StyleBundle(@"~/Content/DataTables", @"https://cdn.datatables.net/1.10.11/css/jquery.dataTables.css").Include(
+				@"~/Content/DataTables/css/jquery.dataTables.css"));
+
 			// Overral Site CSS
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 					  "~/Content/bootstrap.css",
