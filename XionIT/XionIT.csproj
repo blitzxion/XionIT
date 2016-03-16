@@ -215,9 +215,11 @@
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
+    <Compile Include="Controllers\SiteMapController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Ensure.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\HTMLHelperExtensions.cs" />
     <Compile Include="Helpers\Infrastructure.cs" />
@@ -230,6 +232,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PeopleViewModels.cs" />
     <Compile Include="Models\ReportViewModels.cs" />
+    <Compile Include="Models\SiteMapViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -352,6 +355,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -491,6 +495,7 @@
     <Content Include="Views\Reports\Index.cshtml" />
     <Content Include="Views\Reports\Asset.cshtml" />
     <Content Include="Views\Reports\Person.cshtml" />
+    <Content Include="Views\SiteMap\Human.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

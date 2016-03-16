@@ -1,0 +1,54 @@
+﻿@using XionIT.Models;
+@model IList<MapItem>
+
+@{
+	ViewBag.Title = "Site Map";
+
+	bool isLoggedIn = Html.ViewContext.HttpContext.User.Identity.IsAuthenticated;
+
+}
+
+<div class="row">
+	<div class="col-md-12">
+
+		<ul>
+			@foreach (var map in Model)
+			{
+				<li>
+					<p>
+						@if (!isLoggedIn && map.RequiresAuth)
+						{
+							<span>@map.Name <small class="text-muted">(@Url.Action(map.Action, map.Controller))</small></span>
+						}
+						else
+						{
+							<a href="@Url.Action(map.Action, map.Controller)"><span>@map.Name <small class="text-muted">(@Url.Action(map.Action, map.Controller))</small></span></a>
+						}
+					</p>
+
+					@if (map.Children.Any())
+					{
+						<ul>
+							@foreach (var child in map.Children)
+							{
+								<li>
+									<p>
+										@if ((!isLoggedIn && child.RequiresAuth) || child.HasParams)
+										{
+											<span>@child.Name <small class="text-muted">(@Url.Action(child.Action, child.Controller))</small></span>
+										}
+										else
+										{
+											<a href="@Url.Action(child.Action, child.Controller)"><span>@child.Name <small class="text-muted">(@Url.Action(child.Action, child.Controller))</small></span></a>
+										}
+									</p>
+								</li>
+							}
+						</ul>
+					}
+				</li>
+			}
+		</ul>
+
+	</div>
+</div>
