@@ -10,6 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Linq.Expressions;
 
 namespace XionIT.Controllers
 {
@@ -111,6 +112,22 @@ namespace XionIT.Controllers
 		public void SetRedirectSuccess(string message)
 		{
 			TempData["success"] = message;
+		}
+
+		protected async Task<SelectList> GetUserSelectListAsync(Func<ApplicationUser, string> format = null)
+		{
+			format = format ?? (x => { return x.UserName; });
+			var aUsers = new List<Tuple<string, string>>();
+			await UserManager.Users.ForEachAsync(x => aUsers.Add(new Tuple<string, string>(x.Id, format(x))));
+			return new SelectList(aUsers, "Item1", "Item2");
+		}
+
+		protected async Task<SelectList> GetAssetSelectListAsync(Func<Asset, string> format = null)
+		{
+			format = format ?? ((x) => { return string.Format(@"{0} ({1}, {2})", x.Name, x.Model, x.Serialnumber);  });
+			var aAssets = new List<Tuple<int, string>>();
+			await AppDbContext.Assets.ForEachAsync(x => aAssets.Add(new Tuple<int, string>(x.Id, format(x))));
+			return new SelectList(aAssets, "Item1", "Item2");
 		}
 
 

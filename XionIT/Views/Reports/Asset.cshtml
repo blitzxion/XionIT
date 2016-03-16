@@ -1,0 +1,125 @@
+﻿@using XionIT.Models;
+@model Asset
+
+@{
+	ViewBag.Title = string.Format(@"{0} {1}", Model.Model, Model.Name);
+	ViewBag.SubTitle = string.Format(@"{0}", Model.Serialnumber);
+}
+
+<div class="printArea visible-print-block">
+
+	<h4>Details</h4>
+	<table class="table table-condensed">
+		<tbody>
+			<tr><th>@Html.DisplayNameFor(x => x.Id)</th><td>@Model.Id</td></tr>
+			<tr><th>@Html.DisplayNameFor(x => x.Name)</th><td>@Model.Name</td></tr>
+			<tr><th>@Html.DisplayNameFor(x => x.Model)</th><td>@Model.Model</td></tr>
+			<tr><th>@Html.DisplayNameFor(x => x.Serialnumber)</th><td>@Model.Serialnumber</td></tr>
+			<tr><th>@Html.DisplayNameFor(x => x.AssetTag)</th><td>@Model.AssetTag</td></tr>
+		</tbody>
+	</table>
+
+	<h4>Assigned Users</h4>
+	<table class="table table-condensed">
+		<thead><tr><th>Person</th><th>Assigned Assets</th></tr></thead>
+		<tbody>
+			@foreach (var user in Model.Users)
+			{
+				<tr>
+					<td>@user.UserName<br/><small class="text-muted">(@user.Id)</small></td>
+					<td>@user.Assets.Count()</td>
+				</tr> }
+		</tbody>
+	</table>
+
+	<h4>@Html.DisplayNameFor(x => x.Description)</h4>
+	<p>@Model.Description</p>
+
+
+	<h4>@Html.DisplayNameFor(x => x.Notes)</h4>
+	<p>@Model.Notes</p>
+
+</div>
+
+<div class="hidden-print">
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Details</h3>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-condensed">
+				<tbody>
+					<tr><th>@Html.DisplayNameFor(x => x.Id)</th><td>@Model.Id</td></tr>
+					<tr><th>@Html.DisplayNameFor(x => x.Name)</th><td>@Model.Name</td></tr>
+					<tr><th>@Html.DisplayNameFor(x => x.Model)</th><td>@Model.Model</td></tr>
+					<tr><th>@Html.DisplayNameFor(x => x.Serialnumber)</th><td>@Model.Serialnumber</td></tr>
+					<tr><th>@Html.DisplayNameFor(x => x.AssetTag)</th><td>@Model.AssetTag</td></tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Assigned Users</h3>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-condensed table-striped table-hover">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Person</th>
+						<th>Assigned Assets</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var user in Model.Users)
+					{
+					<tr>
+						<td>
+							<a href="@Url.Action("Person", "Reports", new { selectedPerson = user.Id })" title="View Report" target="_blank" class="hidden-print">
+								<i class="glyphicon glyphicon-new-window"></i>
+							</a>
+						</td>
+						<td>@user.UserName<br/><small class="text-muted">(@user.Id)</small></td>
+						<td>@user.Assets.Count()</td>
+					</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">@Html.DisplayNameFor(x => x.Description)</h3>
+		</div>
+		<div class="panel-body">
+			<p>@Model.Description</p>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">@Html.DisplayNameFor(x => x.Notes)</h3>
+		</div>
+		<div class="panel-body">
+			<p>@Model.Notes</p>
+		</div>
+	</div>
+
+</div>
+
+@section Styles {
+
+	<style>
+		@@media print {
+			.printArea h4 { 
+				width:100%;
+				text-decoration: underline
+			}
+		}
+	</style>
+
+}

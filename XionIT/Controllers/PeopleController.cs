@@ -76,6 +76,7 @@ namespace XionIT.Controllers
 		//
 		// POST: /People/Create
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> Create(NewPersonViewModel userViewModel) //, params string[] selectedRoles)
 		{
 			if (ModelState.IsValid)
@@ -309,17 +310,5 @@ namespace XionIT.Controllers
 			}
 			return View(model);
 		}
-
-
-		async Task<SelectList> GetAssetSelectListAsync()
-		{
-			var aAssets = new List<Tuple<int, string>>();
-			await AppDbContext.Assets.ForEachAsync(x =>
-			{
-				aAssets.Add(new Tuple<int, string>(x.Id, string.Format(@"{0} ({1}, {2})", x.Name, x.Model, x.Serialnumber)));
-			});
-			return new SelectList(aAssets, "Item1", "Item2");
-		}
-
 	}
 }

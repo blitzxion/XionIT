@@ -47,6 +47,7 @@ namespace XionIT
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 					  "~/Content/bootstrap.css",
 					  "~/Content/yeti.theme.css",
+					  "~/Content/print.css",
 					  "~/Content/site.css"));
 
 			// Site JS
