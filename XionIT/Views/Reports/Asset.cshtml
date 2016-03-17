@@ -16,6 +16,7 @@
 			<tr><th>@Html.DisplayNameFor(x => x.Model)</th><td>@Model.Model</td></tr>
 			<tr><th>@Html.DisplayNameFor(x => x.Serialnumber)</th><td>@Model.Serialnumber</td></tr>
 			<tr><th>@Html.DisplayNameFor(x => x.AssetTag)</th><td>@Model.AssetTag</td></tr>
+			<tr><th>@Html.DisplayNameFor(x => x.Created)</th><td>@Model.Created.ToShortDateString()</td></tr>
 		</tbody>
 	</table>
 
@@ -55,6 +56,7 @@
 					<tr><th>@Html.DisplayNameFor(x => x.Model)</th><td>@Model.Model</td></tr>
 					<tr><th>@Html.DisplayNameFor(x => x.Serialnumber)</th><td>@Model.Serialnumber</td></tr>
 					<tr><th>@Html.DisplayNameFor(x => x.AssetTag)</th><td>@Model.AssetTag</td></tr>
+					<tr><th>@Html.DisplayNameFor(x => x.Created)</th><td>@Model.Created.ToShortDateString()</td></tr>
 				</tbody>
 			</table>
 		</div>
@@ -112,7 +114,6 @@
 </div>
 
 @section Styles {
-
 	<style>
 		@@media print {
 			.printArea h4 { 
@@ -121,5 +122,4 @@
 			}
 		}
 	</style>
-
 }

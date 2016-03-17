@@ -1,0 +1,91 @@
+﻿@using XionIT.Models;
+@model IList<Asset>
+
+@{
+	ViewBag.Title = "Assets Not Assigned";
+}
+
+<div class="visible-print-block">
+	<h4>Assets</h4>
+	<table class="table table-condensed">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Model</th>
+				<th>Serialnumber</th>
+				<th>AssetTag</th>
+				<th>Num Users</th>
+				<th>Created</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var asset in Model)
+			{
+				<tr>
+					<td>@asset.Id</td>
+					<td>@asset.Name</td>
+					<td>@asset.Model</td>
+					<td>@asset.Serialnumber</td>
+					<td>@asset.AssetTag</td>
+					<td>@asset.Users.Count()</td>
+					<td>@asset.Created.ToShortDateString()</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+<div class="hidden-print">
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Assets</h3>
+		</div>
+		<table class="table table-condensed">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Model</th>
+					<th>Serialnumber</th>
+					<th>AssetTag</th>
+					<th>Num Users</th>
+					<th>Created</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var asset in Model)
+			{
+					<tr>
+						<td>
+							<a href="@Url.Action("Asset", "Reports", new { selectedAsset = asset.Id })" title="View Report" target="_blank" class="hidden-print">
+								<i class="glyphicon glyphicon-new-window"></i>
+							</a>
+						</td>
+						<td>@asset.Id</td>
+						<td>@asset.Name</td>
+						<td>@asset.Model</td>
+						<td>@asset.Serialnumber</td>
+						<td>@asset.AssetTag</td>
+						<td>@asset.Users.Count()</td>
+						<td>@asset.Created.ToShortDateString()</td>
+					</tr>
+			}
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+@section Styles {
+	<style>
+		@@media print {
+			.printArea h4 {
+				width: 100%;
+				text-decoration: underline;
+			}
+		}
+	</style>
+}

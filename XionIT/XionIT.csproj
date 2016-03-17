@@ -496,6 +496,10 @@
     <Content Include="Views\Reports\Asset.cshtml" />
     <Content Include="Views\Reports\Person.cshtml" />
     <Content Include="Views\SiteMap\Human.cshtml" />
+    <Content Include="Views\Reports\PeopleWithMostAssets.cshtml" />
+    <Content Include="Views\Reports\PeopleWithoutAssets.cshtml" />
+    <Content Include="Views\Reports\MostAssignedAssets.cshtml" />
+    <Content Include="Views\Reports\AssetsNotAssigned.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

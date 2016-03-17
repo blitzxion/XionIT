@@ -16,7 +16,8 @@ namespace XionIT.Controllers
 			var sitemapItems = new List<SitemapItem>();
 			var map = GetSiteMap();
 
-			foreach(var x in map) {
+			foreach (var x in map)
+			{
 				sitemapItems.Add(new SitemapItem(Url.QualifiedAction(x.Action, x.Controller)));
 				foreach (var child in x.Children) // Single level, i don't have crazy pages.
 					sitemapItems.Add(new SitemapItem(Url.QualifiedAction(child.Action, child.Controller)));
@@ -40,7 +41,8 @@ namespace XionIT.Controllers
 				MapItem.Create(@"index", "people", "People", true).AddChild("details", hasParams:true).AddChild("create").AddChild("edit", hasParams:true).AddChild("delete", hasParams:true),
 				MapItem.Create(@"index", "assets", "Assets", true).AddChild("details", hasParams:true).AddChild("create").AddChild("edit", hasParams:true).AddChild("delete", hasParams:true),
 				MapItem.Create(@"index", "reports", "Reports", true).AddChild("asset", hasParams:true).AddChild("person", hasParams:true),
-				MapItem.Create(@"index", "account", "Account Managment").AddChild("login").AddChild("register"),
+				MapItem.Create(@"index", "manage", "Account Management", true).AddChild("setpassword", name:"Set Password").AddChild("changepassword", name:"Change Password"),
+				MapItem.Create(@"index", "account", "Login Managment").AddChild("login").AddChild("register"),
 				MapItem.Create(@"index", "sitemap", "Site Map").AddChild("human")
 			};
 			return map;

@@ -57,18 +57,39 @@
 			</div>
 		</div>
 
+	</div>
+
+	<hr/>
+
+	<div class="row">
+
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Common Reports</h3>
+				</div>
+				<div class="panel-body">
+					<ul>
+						<li><a href="@Url.Action("PeopleWithMostAssets")">People with the most assets</a></li>
+						<li><a href="@Url.Action("PeopleWithoutAssets")">People without assets</a></li>
+						<li><a href="@Url.Action("MostAssignedAssets")">Most assigned Assets</a></li>
+						<li><a href="@Url.Action("AssetsNotAssigned")">Assets not assigned</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 
 	</div>
 
 </div>
 
 @section Styles {
-	@Styles.Render("~/Content/select2");
+	@Styles.Render("~/Content/select2")
 }
 
 @section Scripts {
 	@Scripts.Render("~/bundles/jqueryval")
-	@Scripts.Render("~/plugins/select2");
+	@Scripts.Render("~/plugins/select2")
 	<script>
 		(function () {
 			$('select').select2();

@@ -61,5 +61,30 @@ namespace XionIT.Controllers
 			return View(user);
 		}
 
-    }
+
+		public ActionResult PeopleWithMostAssets()
+		{
+			var people = UserManager.Users.OrderByDescending(x => x.Assets.Count()).Take(5).ToList();
+			return View(people);
+		}
+
+		public ActionResult PeopleWithoutAssets()
+		{
+			var people = UserManager.Users.Where(x => !x.Assets.Any()).ToList();
+			return View(people);
+		}
+
+		public ActionResult MostAssignedAssets()
+		{
+			var assets = AppDbContext.Assets.OrderByDescending(x => x.Users.Count()).Take(5).ToList();
+			return View(assets);
+		}
+
+		public ActionResult AssetsNotAssigned()
+		{
+			var assets = AppDbContext.Assets.Where(x => !x.Users.Any()).ToList();
+			return View(assets);
+		}
+
+	}
 }
