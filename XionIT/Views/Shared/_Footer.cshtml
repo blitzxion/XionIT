@@ -2,8 +2,12 @@
 	<hr />
 	<div class="row">
 		<div class="col-md-12 text-center">
-			<p>Xion IT Asset Management | <small><strong>Copyright</strong> Richard Shaw &copy; @DateTime.Now.Year</small></p>
-			<span class="hidden-print"><a href="@Url.Action("human", "SiteMap")">Site Map</a></span>
+			<p>Xion IT Asset Management | <small>Richard Shaw (@DateTime.Now.Year)</small></p>
+			<ul class="list-inline hidden-print">
+				<li><a href="@Url.Action("about", "Home")">About Us</a></li>
+				<li><a href="@Url.Action("contact", "Home")">Contact Us</a></li>
+				<li><a href="@Url.Action("human", "SiteMap")">Site Map</a></li>
+			</ul>
 		</div>
 	</div>
 </footer>
