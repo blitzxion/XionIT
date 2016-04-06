@@ -151,14 +151,16 @@ namespace XionIT.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+				var now = DateTime.UtcNow;
+
+				var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Created = now, Updated = now }; // Accidentally let this one slip through!
 				var result = await UserManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
 				{
 					// Add user to Role User if not already added
-					var rolesForUser = _userManager.GetRoles(user.Id);
+					var rolesForUser = UserManager.GetRoles(user.Id);
 					if (!rolesForUser.Contains(@"User"))
-						_userManager.AddToRole(user.Id, @"User");
+						UserManager.AddToRole(user.Id, @"User");
 
 					await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
